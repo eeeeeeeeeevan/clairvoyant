@@ -1,8 +1,10 @@
 clairvoyant (was) used in a (certain) roblox casino gambling platform to do something very very silly
 
-dont ever implement a backdoored csprng for your robux plinko and crash games 
+dont ever implement a backdoored csprng for your robux plinko and crash games (nor use chacha20-drbg, or any csprng for anything related to gambling)
+
 
 (clairvoyant+randcrash were two seperate things fyi, one was cc20, other was a shitty lcg)
+
 s/o you-know-who for the classic fedora 
 
 rofl
