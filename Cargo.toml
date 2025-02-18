@@ -1,0 +1,12 @@
+[package]
+name = "clairvoyant"
+version = "1.0.0"
+edition = "2024"
+
+description = "hmm i wonder what this could be"
+authors = ["none"]
+
+[dependencies]
+chacha20 = "0.4"
+cipher = "0.4"
+rand = "0.8"
