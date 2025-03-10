@@ -8,6 +8,7 @@ pub struct Secgen256 {
     nonce: [u8; 12],
     buffer: Vec<u8>,
     prev_key: [u8; 32],
+    mutfact: u8,
 }
 
 impl Secgen256 {
@@ -22,6 +23,7 @@ impl Secgen256 {
             nonce,
             buffer: vec![],
             prev_key: [0u8; 32],
+            mutfact: 3, 
         }
     }
 
@@ -51,10 +53,14 @@ impl Secgen256 {
     fn mutator(&mut self) {
         let mut new_key = [0u8; 32];
         for i in 0..32 {
-            new_key[i] = self.key[i] ^ self.prev_key[i];
+            new_key[i] = self.key[i].wrapping_add(self.prev_key[i].wrapping_add(self.mutfact));
         }
         self.prev_key = self.key;
         self.key = new_key;
+
+        if rand::random::<f32>() < 0.05 {
+            self.key[0] ^= rand::random::<u8>();
+        }
     }
 
     pub fn genstream(&mut self, size: usize) -> Vec<u8> {
@@ -78,5 +84,5 @@ fn main() {
     let mut rng = Secgen256::new();
 
     let random_data = rng.genstream(1024);
-    println!("new {} bytes of stuff generated", random_data.len());
+    println!("generated {} bytes of stuff", random_data.len());
 }
